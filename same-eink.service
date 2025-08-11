@@ -1,0 +1,8 @@
+[Unit]
+Description=Update e-ink on SAME alert
+
+[Service]
+Type=oneshot
+User=noaa
+WorkingDirectory=/home/noaa/sameasy
+ExecStart=/usr/bin/python3 /home/noaa/sameasy/update_eink.py

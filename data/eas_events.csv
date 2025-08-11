@@ -1,0 +1,59 @@
+code,description
+TOE,911 Telephone Outage Emergency
+ADR,Administrative Message/Follow up Statement (used for Silver Alerts)
+CAE,Child Abduction Emergency
+CDW,Civil Danger Warning
+CEM,Civil Emergency Message
+EAN,Emergency Action Notification/Presidential Alert
+EAT,Emergency Action Termination
+EVI,Evacuation Immediate
+BLU,Law Enforcement Blue Alert
+LEW,Law Enforcement Warning
+LAE,Local Area Emergency
+NIC,National Information Center
+NMN,Network Message Notification
+SPW,Shelter in Place Warning
+AVW,Avalanche Warning
+AVA,Avalanche Watch
+EQW,Earthquake Warning
+TSW,Tsunami Warning
+TSA,Tsunami Watch
+VOW,Volcano Warning
+HMW,Hazardous Materials Warning
+NUW,Nuclear Power Plant Warning
+RHW,Radiological Hazard Warning
+BZW,Blizzard Warning
+CFW,Coastal Flood Warning
+CFA,Coastal Flood Watch
+DSW,Dust Storm Warning
+EWW,Extreme Wind Warning
+FRW,Fire Warning
+FFS,Flash Flood Statement
+FFW,Flash Flood Warning
+FFA,Flash Flood Watch
+FLS,Flood Statement
+FLW,Flood Warning
+FLA,Flood Watch
+HWW,High Wind Warning
+HWA,High Wind Watch
+HLS,Hurricane Statement
+HUW,Hurricane Warning
+HUA,Hurricane Watch
+NWS,National Weather Service
+SVR,Severe Thunderstorm Warning
+SVA,Severe Thunderstorm Watch
+SVS,Severe Weather Statement
+SMW,Special Marine Warning
+SPS,Special Weather Statement
+SSW,Storm Surge Warning
+SSA,Storm Surge Watch
+TOR,Tornado Warning
+TOA,Tornado Watch
+TRW,Tropical Storm Warning
+TRA,Tropical Storm Watch
+WSW,Winter Storm Warning
+WSA,Winter Storm Watch
+NPT,National Periodic Test
+DMO,Practice/Demo Warning
+RMT,Required Monthly Test
+RWT,Required Weekly Test

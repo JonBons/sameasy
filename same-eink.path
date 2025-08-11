@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch last_message.json for e-ink updates
+
+[Path]
+PathChanged=/home/noaa/sameasy/last_message.json
+
+[Install]
+WantedBy=multi-user.target
