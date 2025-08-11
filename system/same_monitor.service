@@ -3,7 +3,7 @@ Description=SAME Alert Monitor
 After=network.target sound.target
 
 [Service]
-ExecStart=/usr/bin/bash -c '/home/noaa/sameasy/same_monitor.sh >> /home/noaa/sameasy/same_monitor.log 2>&1'
+ExecStart=/usr/bin/bash -c '/home/noaa/sameasy/system/same_monitor.sh >> /home/noaa/sameasy/runtime/logs/same_monitor.log 2>&1'
 
 WorkingDirectory=/home/noaa/sameasy
 Restart=always

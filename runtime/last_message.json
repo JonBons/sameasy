@@ -1,0 +1,16 @@
+{
+  "event": "Required Weekly Test",
+  "event_code": "RWT",
+  "originator": "Emergency Alert System",
+  "source": "WTSP/TV",
+  "issued_local": "Oct 04 2025, 11:15 PM",
+  "duration_minutes": 30,
+  "regions": [
+    "Hillsborough",
+    "Manatee",
+    "Pasco",
+    "Pinellas",
+    "Sarasota"
+  ],
+  "updated": "2025-08-11 17:26:55"
+}

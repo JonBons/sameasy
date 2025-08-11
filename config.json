@@ -1,0 +1,36 @@
+{
+    "fonts": {
+        "bold": "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+        "regular": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+        "small": "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
+    },
+    "font_sizes": {
+        "bold": 20,
+        "regular": 12,
+        "small": 10
+    },
+    "display": {
+        "icon_bottom_height": 24,
+        "padding": 10
+    },
+    "icon_mappings": {
+        "RWT": "test.png",
+        "RMT": "test.png",
+        "NPT": "test.png",
+        "TOR": "tornado.png",
+        "SVR": "thunderstorm.png",
+        "FFW": "flood.png",
+        "FLW": "flood.png",
+        "WSW": "snow.png",
+        "TOA": "watch.png",
+        "SVA": "watch.png",
+        "FFA": "watch.png",
+        "CAE": "amber.png"
+    },
+    "fallback_icon": "info.png",
+    "icon_fallbacks": {
+        "warning": "warning.png",
+        "watch": "watch.png",
+        "test": "test.png"
+    }
+}
