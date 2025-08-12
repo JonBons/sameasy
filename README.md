@@ -4,7 +4,6 @@
 
 SAMEasy is a complete emergency alert monitoring system that receives SAME (Specific Area Message Encoding) alerts from weather radios and displays them on an e-ink screen. Perfect for emergency preparedness, weather monitoring, and staying informed about local threats.
 
-![SAMEasy Demo](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![Platform](https://img.shields.io/badge/Platform-Raspberry%20Pi-red)
 ![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
 
