@@ -7,22 +7,27 @@ from typing import Dict, List, Optional, Any
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 from waveshare_epd import epd2in7_V2 as epd_mod
 
+# ---------- Project Setup ----------
+PROJECT_ROOT = Path(__file__).parent.parent
+RUNTIME_DIR = PROJECT_ROOT / "runtime"
+JSON_PATH = PROJECT_ROOT / "runtime" / "last_message.json"
+CONFIG_PATH = PROJECT_ROOT / "config.json"
+ICON_DIR = PROJECT_ROOT / "icons" / "material"
+
+# Ensure runtime directories exist
+RUNTIME_DIR.mkdir(exist_ok=True)
+(RUNTIME_DIR / "logs").mkdir(exist_ok=True)
+
 # ---------- Setup logging ----------
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('eink_display.log'),
+        logging.FileHandler(RUNTIME_DIR / 'logs' / 'eink_display.log'),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
-
-# ---------- Paths & assets ----------
-BASE_DIR = Path(__file__).resolve().parent
-JSON_PATH = BASE_DIR / "last_message.json"
-CONFIG_PATH = BASE_DIR / "config.json"
-ICON_DIR = BASE_DIR / "icons" / "material"
 
 # ---------- Configuration ----------
 def load_config() -> Dict[str, Any]:
@@ -77,10 +82,12 @@ PADDING = config['display']['padding']
 
 # ---------- Helpers ----------
 def line_h(font, text="Ag") -> int:
+    """Get line height for a font."""
     b = font.getbbox(text)
     return b[3] - b[1]
 
 def wrap(draw: ImageDraw.ImageDraw, text: str, font: ImageFont.FreeTypeFont, max_w: int):
+    """Wrap text to fit within specified width."""
     if not text:
         return []
     words, lines, buf = text.split(), [], ""

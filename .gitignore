@@ -208,3 +208,9 @@ __marimo__/
 
 
 .DS_Store
+
+# Project-specific files
+runtime/logs/*.log
+runtime/alerts.db*
+runtime/last_message.json
+*.tmp

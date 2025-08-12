@@ -1,16 +1,16 @@
-# SAMEASY 🚨
+# SAMEasy 🚨
 
 **Emergency Alert Display System for Raspberry Pi**
 
-SAMEASY is a complete emergency alert monitoring system that receives SAME (Specific Area Message Encoding) alerts from weather radios and displays them on an e-ink screen. Perfect for emergency preparedness, weather monitoring, and staying informed about local threats.
+SAMEasy is a complete emergency alert monitoring system that receives SAME (Specific Area Message Encoding) alerts from weather radios and displays them on an e-ink screen. Perfect for emergency preparedness, weather monitoring, and staying informed about local threats.
 
-![SAMEASY Demo](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+![SAMEasy Demo](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
 ![Platform](https://img.shields.io/badge/Platform-Raspberry%20Pi-red)
 ![Python](https://img.shields.io/badge/Python-3.7%2B-blue)
 
 ## 🎯 What It Does
 
-SAMEASY automatically:
+SAMEasy automatically:
 - **📻 Monitors** weather radio frequencies for emergency alerts
 - **🔍 Decodes** SAME messages (tornado warnings, flood alerts, etc.)
 - **💾 Stores** alerts in a searchable database with full history
@@ -79,13 +79,20 @@ python3 scripts/test_decoder.py
 python3 src/update_eink.py
 ```
 
-### 5. Start Monitoring
+### 5. Monitor the System
+After setup completes, the services are installed and ready. If you chose to start monitoring during setup, you can monitor the system with:
+
 ```bash
-sudo systemctl start same_monitor.service
+# Check service status
 sudo systemctl status same_monitor.service
 
-# Monitor logs
+# Monitor live logs
 journalctl -u same_monitor.service -f
+```
+
+If you didn't start the service during setup, start it manually:
+```bash
+sudo systemctl start same_monitor.service
 ```
 
 ## 📁 Project Structure

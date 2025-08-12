@@ -27,7 +27,7 @@ sudo apt install -y \
     python3-pip python3-venv \
     python3-pil python3-numpy \
     fonts-dejavu fonts-dejavu-core \
-    rtl-sdr sox \
+    rtl-sdr sox cargo \
     espeak \
     gpiod libgpiod-dev \
     sqlite3 \
@@ -47,10 +47,6 @@ if [ ! -d "venv" ]; then
 fi
 source venv/bin/activate
 pip install --upgrade pip
-
-# Install Python dependencies for e-ink display
-echo "🖥️  Installing Python dependencies..."
-pip install pillow numpy
 
 # Initialize project directories and database
 echo "🗄️  Initializing project..."
@@ -81,6 +77,7 @@ if command -v raspi-config >/dev/null 2>&1; then
     cd lg-master
     make -s
     sudo make install -s
+    rm ../master.zip
     
     # Install BCM2835 library
     cd /tmp/
@@ -88,7 +85,8 @@ if command -v raspi-config >/dev/null 2>&1; then
     tar zxf bcm2835-1.71.tar.gz >/dev/null
     cd bcm2835-1.71/
     sudo ./configure >/dev/null && sudo make -s && sudo make check -s && sudo make install -s
-    
+    rm ../bcm2835-1.71.tar.gz
+
     # Install WiringPi
     cd /tmp/
     git clone -q https://github.com/WiringPi/WiringPi
@@ -98,8 +96,7 @@ if command -v raspi-config >/dev/null 2>&1; then
     # Install Waveshare e-Paper library
     cd /tmp/
     git clone -q https://github.com/waveshare/e-Paper
-    cd e-Paper/RaspberryPi_JetsonNano/python
-    pip install -r requirements.txt
+    cp -R e-Paper/RaspberryPi_JetsonNano/python/lib/waveshare_epd $HOME/sameasy/src/
     
     echo "✅ Hardware libraries installed"
 else
