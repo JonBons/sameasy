@@ -464,9 +464,11 @@ python3 scripts/test_decoder.py
 ## 📚 References & Resources
 
 ### SAME Protocol
-- [SAME Protocol Specification](https://www.nws.noaa.gov/nwr/info/nwrsame.html)
-- [Event Codes Reference](https://www.nws.noaa.gov/nwr/info/eventcodes.html)
-- [FIPS County Codes](https://www.nist.gov/standardsgov/compliance-faqs/list-fips-codes-counties-and-county-equivalent-entities)
+- [SAME Summary](https://en.wikipedia.org/wiki/Specific_Area_Message_Encoding)
+- [SAME Protocol Specification](https://docs.fcc.gov/public/attachments/FCC-24-83A1.pdf)
+- [Event Codes Reference](https://www.fema.gov/api/open/v1/DataSetCodes.csv)
+- [FIPS County Codes](https://transition.fcc.gov/oet/info/maps/census/fips/fips.txt)
+- [EAS Message Generator](https://cryptodude3.github.io/same/)
 
 ### Hardware Resources
 - [RTL-SDR Setup Guide](https://www.rtl-sdr.com/rtl-sdr-quick-start-guide/)
