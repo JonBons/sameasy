@@ -20,15 +20,15 @@ SAMEasy automatically:
 ## 🛠️ Hardware Requirements
 
 ### Required
-- **Raspberry Pi 4** (3B+ works, but slower)
-- **RTL-SDR USB Dongle** (RTL2832U based, ~$20)
-- **Waveshare 2.7" E-Ink Display** (264x176 pixels)
-- **MicroSD Card** (16GB+ recommended)
-- **Weather Radio Antenna** (or just a wire for testing)
+- **[Raspberry Pi 4](https://amzn.to/4mdhmHK)** (3B+ works, but slower)
+- **[RTL-SDR USB Dongle](https://amzn.to/4lufskJ)** (RTL2832U based, ~$20)
+- **[Waveshare 2.7" E-Ink Display](https://amzn.to/3JbP8yg)** (264x176 pixels)
+- **[MicroSD Card](https://amzn.to/4oLEIWC)** (16GB+ recommended)
+- **[Weather Radio Antenna](https://amzn.to/4oxWX1y)** (or just a wire for testing)
+- **[SMA to UHF RF Adapter](https://amzn.to/45wmLTa)** 
 
 ### Optional
 - **Powered USB Hub** (if using multiple RTL-SDR dongles)
-- **External Antenna** (for better reception)
 - **Case/Enclosure** (for weather protection)
 
 ## 🚀 Quick Start
