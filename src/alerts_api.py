@@ -5,6 +5,7 @@ GET /alerts/active?point=lat,lon returns GeoJSON FeatureCollection of active ale
 for the county containing the point (area-filtered so mesh/WX script only gets local alerts).
 """
 import csv
+import logging
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
@@ -201,8 +202,16 @@ def alerts_active():
     }), 200, {"Content-Type": "application/geo+json; charset=utf-8"}
 
 
+class _SuppressTLSRequestLogging(logging.Filter):
+    """Suppress 400 'Bad request version' logs from browsers probing HTTPS on HTTP port."""
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "Bad request version" not in record.getMessage()
+
+
 def main() -> None:
     RUNTIME_DIR.mkdir(exist_ok=True)
+    logging.getLogger("werkzeug").addFilter(_SuppressTLSRequestLogging())
     app.run(host="0.0.0.0", port=5000, threaded=True)
 
 
