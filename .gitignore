@@ -1,3 +1,6 @@
+# Local/private (do not commit)
+mesh_wx_alerts.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
