@@ -1,0 +1,21 @@
+# Don't copy host runtime data or secrets into the image
+.git
+.venv
+venv
+.env
+runtime/
+*.log
+
+# E-ink / Pi-only (not used in Docker)
+e-Paper
+waveshare_epd
+
+# Build/cache
+__pycache__
+*.pyc
+.mypy_cache
+.ruff_cache
+
+# Docs and tooling (optional; uncomment to shrink image)
+# README.md
+# docs/

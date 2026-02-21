@@ -94,6 +94,59 @@ If you didn't start the service during setup, start it manually:
 sudo systemctl start same_monitor.service
 ```
 
+## 🐳 Running with Docker (Unraid / headless server)
+
+You can run SAMEasy as a Docker container with **RTL-SDR USB passthrough** and no e-ink display. This is ideal for Unraid or any server.
+
+### Requirements
+- Docker (and Docker Compose if using `docker-compose`)
+- RTL-SDR USB dongle attached to the host
+- No Raspberry Pi or e-ink hardware needed
+
+### 1. Find your RTL-SDR device (on the host)
+```bash
+lsusb
+# Look for "RTL2832" or "Realtek" — note Bus and Device (e.g. 001 and 002)
+# Device will be /dev/bus/usb/001/002 (use your numbers)
+```
+
+### 2. Build and run with Docker Compose
+Edit `docker-compose.yml` and set the `devices` path to your RTL-SDR (e.g. `/dev/bus/usb/001/002`). Then:
+
+```bash
+docker compose up -d --build
+docker compose logs -f sameasy
+```
+
+### 3. Or run with plain Docker
+```bash
+docker build -t sameasy .
+docker run -d --restart unless-stopped \
+  --device /dev/bus/usb/001/002:/dev/bus/usb/001/002 \
+  -v sameasy_runtime:/app/runtime \
+  -e SAMEASY_FREQ=162.4M -e SAMEASY_GAIN=29 \
+  --name sameasy sameasy
+```
+
+### Unraid
+- In the Docker tab, add the container (use the repo’s `docker-compose.yml` or add the image and settings manually).
+- Add a **Device** mapping: host path = your RTL-SDR (e.g. `/dev/bus/usb/001/002`). Unraid may show USB devices by name (e.g. by serial).
+- Mount a volume for **/app/runtime** so the database and logs persist across restarts.
+
+### Optional environment variables
+| Variable        | Default   | Description              |
+|----------------|-----------|--------------------------|
+| `SAMEASY_FREQ` | `162.4M`  | NOAA weather radio freq  |
+| `SAMEASY_GAIN` | `29`      | RTL-SDR gain             |
+| `SAMEASY_PPM`  | `-35`     | PPM correction for dongle|
+
+Data is stored in the **sameasy_runtime** volume: `alerts.db`, `last_message.json`, and logs under `runtime/logs/`. Use the scripts inside the container to inspect data, e.g.:
+
+```bash
+docker exec sameasy python3 scripts/check_database.py
+docker exec sameasy python3 scripts/view_alerts.py
+```
+
 ## 📁 Project Structure
 
 ```

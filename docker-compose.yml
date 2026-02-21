@@ -1,0 +1,33 @@
+# SAMEasy - SAME alert monitor (Docker, headless, no e-ink)
+# Requires RTL-SDR USB device passthrough.
+
+services:
+  sameasy:
+    build: .
+    image: sameasy:latest
+    container_name: sameasy
+    restart: unless-stopped
+    # --- RTL-SDR USB passthrough (required) ---
+    # Option A: Pass your RTL-SDR device (find with: lsusb or ls /dev/bus/usb/)
+    # Unraid: use the Docker UI "Add another Path, Port, Variable, Label or Device"
+    #   Type: Device, Name: rtl-sdr, Value: /dev/bus/usb/001/002
+    #   (Replace 001/002 with your RTL-SDR bus/device numbers from lsusb.)
+    devices:
+      - /dev/bus/usb/001/002:/dev/bus/usb/001/002
+    # Option B: If the above fails, some hosts use:
+    #   privileged: true
+    #   (less secure; prefer passing the single device when possible.)
+    # --- Alerts API (NWS-like for WX script fallback) ---
+    ports:
+      - "5000:5000"
+    # --- Persist database and logs ---
+    volumes:
+      - sameasy_runtime:/app/runtime
+    # --- Optional tuning (NOAA weather radio default: 162.4 MHz) ---
+    environment:
+      - SAMEASY_FREQ=162.4M
+      - SAMEASY_GAIN=29
+      - SAMEASY_PPM=-35
+
+volumes:
+  sameasy_runtime:
