@@ -128,11 +128,14 @@ docker compose up -d --build
 docker compose logs -f sameasy
 ```
 
+**Exposed port:** The container exposes **port 5000** for the Flask alerts API (NWS-like `GET /alerts/active?point=lat,lon`). Compose maps it as `5000:5000`; from the host you can use `http://localhost:5000` or `http://<host-ip>:5000`.
+
 ### 3. Or run with plain Docker
 ```bash
 docker build -t sameasy .
 docker run -d --restart unless-stopped \
   --device /dev/bus/usb/001/002:/dev/bus/usb/001/002 \
+  -p 5000:5000 \
   -v sameasy_runtime:/app/runtime \
   -e SAMEASY_FREQ=162.4M -e SAMEASY_GAIN=29 \
   --name sameasy sameasy
@@ -141,6 +144,7 @@ docker run -d --restart unless-stopped \
 ### Unraid
 - In the Docker tab, add the container (use the repo’s `docker-compose.yml` or add the image and settings manually).
 - Add a **Device** mapping: host path = your RTL-SDR (e.g. `/dev/bus/usb/001/002`). Unraid may show USB devices by name (e.g. by serial).
+- Expose **port 5000** so the Flask alerts API is reachable (e.g. `http://<unraid-ip>:5000/alerts/active?point=lat,lon`).
 - Mount a volume for **/app/runtime** so the database and logs persist across restarts.
 
 ### Optional environment variables
