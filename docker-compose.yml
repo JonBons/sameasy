@@ -8,12 +8,11 @@ services:
     container_name: sameasy
     restart: unless-stopped
     # --- RTL-SDR USB passthrough (required) ---
-    # Option A: Pass your RTL-SDR device (find with: lsusb or ls /dev/bus/usb/)
-    # Unraid: use the Docker UI "Add another Path, Port, Variable, Label or Device"
-    #   Type: Device, Name: rtl-sdr, Value: /dev/bus/usb/001/002
-    #   (Replace 001/002 with your RTL-SDR bus/device numbers from lsusb.)
+    # Set RTL_DEVICE on the host to your device (e.g. export RTL_DEVICE=/dev/bus/usb/003/004).
+    # Find with: lsusb then ls /dev/bus/usb/BUS/DEV
+    # Unraid: Docker UI → Add Device → /dev/bus/usb/001/002 (use your bus/device from lsusb).
     devices:
-      - /dev/bus/usb/001/002:/dev/bus/usb/001/002
+      - ${RTL_DEVICE:-/dev/bus/usb/001/002}:/dev/bus/usb/001/002
     # Option B: If the above fails, some hosts use:
     #   privileged: true
     #   (less secure; prefer passing the single device when possible.)
@@ -23,11 +22,13 @@ services:
     # --- Persist database and logs ---
     volumes:
       - sameasy_runtime:/app/runtime
-    # --- Optional tuning (NOAA weather radio default: 162.4 MHz) ---
+    # --- Optional tuning and retry (NOAA weather radio default: 162.4 MHz) ---
     environment:
       - SAMEASY_FREQ=162.4M
       - SAMEASY_GAIN=29
       - SAMEASY_PPM=-35
+      - SAMEASY_RETRY_DELAY=5
+      # - SAMEASY_MAX_RETRIES=   # unset = retry forever on device drop
 
 volumes:
   sameasy_runtime:

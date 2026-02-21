@@ -108,10 +108,20 @@ You can run SAMEasy as a Docker container with **RTL-SDR USB passthrough** and n
 lsusb
 # Look for "RTL2832" or "Realtek" — note Bus and Device (e.g. 001 and 002)
 # Device will be /dev/bus/usb/001/002 (use your numbers)
+ls /dev/bus/usb/001/002   # verify the node exists (use your bus/device)
+```
+
+**Stable device path (optional):** If the bus/device number changes after reboot (e.g. different USB port), use a udev rule so the dongle gets a fixed symlink, then pass that into the container:
+
+```bash
+# e.g. /etc/udev/rules.d/99-rtl-sdr.rules
+SUBSYSTEM=="usb", ATTRS{idVendor}=="0bda", ATTRS{idProduct}=="2838", SYMLINK+="rtl-sdr", MODE="0666"
+# Reload: sudo udevadm control --reload-rules && sudo udevadm trigger
+# Then use /dev/rtl-sdr (or full path) in docker-compose / RTL_DEVICE.
 ```
 
 ### 2. Build and run with Docker Compose
-Edit `docker-compose.yml` and set the `devices` path to your RTL-SDR (e.g. `/dev/bus/usb/001/002`). Then:
+Set the device path: either edit `docker-compose.yml` `devices` or set **RTL_DEVICE** on the host (e.g. `export RTL_DEVICE=/dev/bus/usb/003/004`). Then:
 
 ```bash
 docker compose up -d --build
@@ -134,11 +144,15 @@ docker run -d --restart unless-stopped \
 - Mount a volume for **/app/runtime** so the database and logs persist across restarts.
 
 ### Optional environment variables
-| Variable        | Default   | Description              |
-|----------------|-----------|--------------------------|
-| `SAMEASY_FREQ` | `162.4M`  | NOAA weather radio freq  |
-| `SAMEASY_GAIN` | `29`      | RTL-SDR gain             |
-| `SAMEASY_PPM`  | `-35`     | PPM correction for dongle|
+| Variable               | Default   | Description                                      |
+|------------------------|-----------|--------------------------------------------------|
+| `SAMEASY_FREQ`         | `162.4M`  | NOAA weather radio freq                          |
+| `SAMEASY_GAIN`         | `29`      | RTL-SDR gain                                     |
+| `SAMEASY_PPM`          | `-35`     | PPM correction for dongle                         |
+| `SAMEASY_RETRY_DELAY`  | `5`       | Seconds to wait before retry after device drop   |
+| `SAMEASY_MAX_RETRIES`  | *(unset)* | Max retries on device drop; unset = retry forever|
+
+**If you see "cb transfer status: 5" or "i2c wr failed=-4" in logs:** The RTL-SDR is dropping off USB. Confirm the correct device path with `lsusb` and `RTL_DEVICE` (or `devices` in compose), use a powered USB 2.0 hub, and on Linux consider blacklisting the DVB driver: `blacklist dvb_usb_rtl28xxu` in `/etc/modprobe.d/`. The monitor script will retry automatically; with `restart: unless-stopped` the container will also restart if the device is missing at startup.
 
 Data is stored in the **sameasy_runtime** volume: `alerts.db`, `last_message.json`, and logs under `runtime/logs/`. Use the scripts inside the container to inspect data, e.g.:
 
