@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-pil \
     python3-pip \
+    python3-venv \
     fonts-dejavu-core \
     fontconfig \
     sqlite3 \
@@ -32,8 +33,9 @@ ENV PATH="/root/.cargo/bin:${PATH}"
 # App lives in /app
 WORKDIR /app
 
-# Alerts API (NWS-like GeoJSON for WX fallback)
-RUN pip install --no-cache-dir flask
+# Alerts API (NWS-like GeoJSON for WX fallback); use venv (PEP 668 / externally-managed)
+RUN python3 -m venv /app/venv && /app/venv/bin/pip install --no-cache-dir flask
+ENV PATH="/app/venv/bin:${PATH}"
 
 # Copy only what's needed for headless run (no e-Paper / Waveshare)
 COPY config.json ./
